@@ -6,11 +6,23 @@ import {
 	useSensor,
 	useSensors,
 	type UniqueIdentifier,
-    DragEndEvent,
+	type DragEndEvent,
+	DndContext,
+	DragOverlay,
+	closestCorners,
 } from '@dnd-kit/core'
-import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import {
+	arrayMove,
+	SortableContext,
+	sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable'
 import { createId as cuid } from '@paralleldrive/cuid2'
 import { useState } from 'react'
+import Container from '#app/components/container.js'
+import Items from '#app/components/item.js'
+import Modal from '#app/components/modal.js'
+import { Button } from '#app/components/ui/button.js'
+import { Input } from '#app/components/ui/input.js'
 
 type DNDType = {
 	id: UniqueIdentifier
@@ -142,7 +154,9 @@ export default function Kanban() {
 			// In the same container
 			if (activeContainerIndex === overContainerIndex) {
 				let newItems = [...containers]
+				// @ts-expect-error noUncheckedIndexedAccess
 				newItems[activeContainerIndex].items = arrayMove(
+					// @ts-expect-error noUncheckedIndexedAccess
 					newItems[activeContainerIndex].items,
 					activeitemIndex,
 					overitemIndex,
@@ -152,10 +166,12 @@ export default function Kanban() {
 			} else {
 				// In different containers
 				let newItems = [...containers]
+				// @ts-expect-error noUncheckedIndexedAccess
 				const [removeditem] = newItems[activeContainerIndex].items.splice(
 					activeitemIndex,
 					1,
 				)
+				// @ts-expect-error noUncheckedIndexedAccess
 				newItems[overContainerIndex].items.splice(overitemIndex, 0, removeditem)
 				setContainers(newItems)
 			}
@@ -191,10 +207,12 @@ export default function Kanban() {
 
 			// Remove the active item from the active container and add it to the over container
 			let newItems = [...containers]
+			// @ts-expect-error noUncheckedIndexedAccess
 			const [removeditem] = newItems[activeContainerIndex].items.splice(
 				activeitemIndex,
 				1,
 			)
+			// @ts-expect-error noUncheckedIndexedAccess
 			newItems[overContainerIndex].items.push(removeditem)
 			setContainers(newItems)
 		}
@@ -257,7 +275,9 @@ export default function Kanban() {
 			// In the same container
 			if (activeContainerIndex === overContainerIndex) {
 				let newItems = [...containers]
+				// @ts-expect-error noUncheckedIndexedAccess
 				newItems[activeContainerIndex].items = arrayMove(
+					// @ts-expect-error noUncheckedIndexedAccess
 					newItems[activeContainerIndex].items,
 					activeitemIndex,
 					overitemIndex,
@@ -266,10 +286,12 @@ export default function Kanban() {
 			} else {
 				// In different containers
 				let newItems = [...containers]
+				// @ts-expect-error noUncheckedIndexedAccess
 				const [removeditem] = newItems[activeContainerIndex].items.splice(
 					activeitemIndex,
 					1,
 				)
+				// @ts-expect-error noUncheckedIndexedAccess
 				newItems[overContainerIndex].items.splice(overitemIndex, 0, removeditem)
 				setContainers(newItems)
 			}
@@ -301,10 +323,12 @@ export default function Kanban() {
 			)
 
 			let newItems = [...containers]
+			// @ts-expect-error noUncheckedIndexedAccess
 			const [removeditem] = newItems[activeContainerIndex].items.splice(
 				activeitemIndex,
 				1,
 			)
+			// @ts-expect-error noUncheckedIndexedAccess
 			newItems[overContainerIndex].items.push(removeditem)
 			setContainers(newItems)
 		}
